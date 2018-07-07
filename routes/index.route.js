@@ -6,6 +6,8 @@ module.exports = () => {
   router.get("/", getAllIndex);
   router.get("/:col/:row", getIndex);
   router.post("/startrent/:col/:row", startRent);
+  router.put("/update/:col/:row", updateRent);
+  router.delete("/delete/:col/:row", deleteRent);
   return router;
 };
 
@@ -46,6 +48,40 @@ function startRent(req, res, next) {
     expirationDate: req.body.expirationDate,
     renter: req.body.renter,
     carNumber: req.body.carNumber
+  };
+  indexController
+    .updateIndex(request)
+    .then(response => res.send(response))
+    .catch(err => next(err));
+}
+
+function updateRent(req, res, next) {
+  var request = {
+    col: req.params.col,
+    row: req.params.row,
+    companyName: req.body.companyName,
+    status: 1,
+    rentedDate: req.body.rentedDate,
+    expirationDate: req.body.expirationDate,
+    renter: req.body.renter,
+    carNumber: req.body.carNumber
+  };
+  indexController
+    .updateIndex(request)
+    .then(response => res.send(response))
+    .catch(err => next(err));
+}
+
+function deleteRent(req, res, next) {
+  var request = {
+    col: req.params.col,
+    row: req.params.row,
+    companyName: " ",
+    status: 0,
+    rentedDate: new Date(),
+    expirationDate: new Date(),
+    renter: " ",
+    carNumber: " "
   };
   indexController
     .updateIndex(request)
