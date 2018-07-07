@@ -54,22 +54,27 @@ function updateIndex(request) {
               message: message.ERROR_MESSAGE.INDEX.NOT_FOUND
             });
           } else {
-            indexModel.companyName = request.companyName
-              ? request.companyName
-              : indexModel.companyName;
+            indexModel.companyName =
+              indexModel.companyName !== request.companyName
+                ? request.companyName
+                : indexModel.companyName;
             indexModel.status = request.status;
-            indexModel.rentedDate = request.rentedDate
-              ? request.rentedDate
-              : indexModel.rentedDate;
-            indexModel.expirationDate = request.expirationDate
-              ? request.expirationDate
-              : indexModelexpirationDate;
-            indexModel.renter = request.renter
-              ? request.renter
-              : indexModel.renter;
-            indexModel.carNumber = request.carNumber
-              ? request.carNumber
-              : indexModel.carNumber;
+            indexModel.rentedDate =
+              indexModel.rentedDate !== request.rentedDate
+                ? request.rentedDate
+                : indexModel.rentedDate;
+            indexModel.expirationDate =
+              indexModel.expirationDate !== request.expirationDate
+                ? request.expirationDate
+                : indexModelexpirationDate;
+            indexModel.renter =
+              indexModel.renter !== request.renter
+                ? request.renter
+                : indexModel.renter;
+            indexModel.carNumber =
+              indexModel.carNumber != request.carNumber
+                ? request.carNumber
+                : indexModel.carNumber;
             indexModel.save((err, response) => {
               if (err) reject(err);
               else {
