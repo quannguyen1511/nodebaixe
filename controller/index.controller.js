@@ -5,7 +5,8 @@ module.exports = {
   getAllIndex: getAllIndex,
   getIndex: getIndex,
   createIndex: createIndex,
-  updateIndex: updateIndex
+  updateIndex: updateIndex,
+  deleteIndex: deleteIndex
 };
 
 function getAllIndex() {
@@ -94,18 +95,25 @@ function updateIndex(request) {
               message: message.ERROR_MESSAGE.INDEX.NOT_FOUND
             });
           } else {
-            indexModel.companyName = request.companyName;
-            indexModel.status = request.status;
-            indexModel.rentedDate = request.rentedDate;
-            indexModel.expirationDate = request.expirationDate;
-            indexModel.renter = request.renter;
-            indexModel.carNumber = request.carNumber;
-            indexModel.save((err, response) => {
-              if (err) reject(err);
-              else {
-                resolve(response);
-              }
-            });
+            if (indexModel.status == 0) {
+              reject({
+                statusCode: 404,
+                message: message.ERROR_MESSAGE.INDEX.EMPTY
+              });
+            } else {
+              indexModel.companyName = request.companyName;
+              indexModel.status = request.status;
+              indexModel.rentedDate = request.rentedDate;
+              indexModel.expirationDate = request.expirationDate;
+              indexModel.renter = request.renter;
+              indexModel.carNumber = request.carNumber;
+              indexModel.save((err, response) => {
+                if (err) reject(err);
+                else {
+                  resolve(response);
+                }
+              });
+            }
           }
         }
       }
