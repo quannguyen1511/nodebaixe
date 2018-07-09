@@ -64,10 +64,16 @@ function startRent(req, res, next) {
           .status(400)
           .send({ message: message.ERROR_MESSAGE.INDEX.EMPTY_CAR_NUMBER });
       } else {
-        indexController
-          .createIndex(request)
-          .then(response => res.send(response))
-          .catch(err => next(err));
+        if (!request.expirationDate <= request.rentedDate) {
+          res
+            .status(400)
+            .send({ message: message.ERROR_MESSAGE.INDEX.NOT_STANDARD });
+        } else {
+          indexController
+            .createIndex(request)
+            .then(response => res.send(response))
+            .catch(err => next(err));
+        }
       }
     }
   }
