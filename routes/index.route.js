@@ -45,7 +45,7 @@ function startRent(req, res, next) {
     companyName: req.body.companyName,
     status: 1,
     rentedDate: new Date(),
-    expirationDate: req.body.expirationDate,
+    expirationDate: new Date(req.body.expirationDate),
     renter: req.body.renter,
     carNumber: req.body.carNumber
   };
