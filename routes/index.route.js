@@ -49,10 +49,28 @@ function startRent(req, res, next) {
     renter: req.body.renter,
     carNumber: req.body.carNumber
   };
-  indexController
-    .updateIndex(request)
-    .then(response => res.send(response))
-    .catch(err => next(err));
+  if (!request.expirationDate) {
+    res
+      .status(400)
+      .send({ message: message.ERROR_MESSAGE.INDEX.EMPTY_EXPIRATION_DATE });
+  } else {
+    if (!request.renter) {
+      res
+        .status(400)
+        .send({ message: message.ERROR_MESSAGE.INDEX.EMPTY_RENTER });
+    } else {
+      if (!request.carNumber) {
+        res
+          .status(400)
+          .send({ message: message.ERROR_MESSAGE.INDEX.EMPTY_CAR_NUMBER });
+      } else {
+        indexController
+          .updateIndex(request)
+          .then(response => res.send(response))
+          .catch(err => next(err));
+      }
+    }
+  }
 }
 
 function updateRent(req, res, next) {
