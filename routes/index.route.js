@@ -64,7 +64,7 @@ function startRent(req, res, next) {
           .status(400)
           .send({ message: message.ERROR_MESSAGE.INDEX.EMPTY_CAR_NUMBER });
       } else {
-        if (!request.expirationDate <= request.rentedDate) {
+        if (request.expirationDate <= request.rentedDate) {
           res
             .status(400)
             .send({ message: message.ERROR_MESSAGE.INDEX.NOT_STANDARD });
