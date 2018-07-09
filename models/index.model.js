@@ -16,20 +16,16 @@ var indexSchema = new Schema({
     required: true
   },
   rentedDate: {
-    type: Date,
-    required: true
+    type: Date
   },
   expirationDate: {
-    type: Date,
-    required: true
+    type: Date
   },
   renter: {
-    type: String,
-    required: true
+    type: String
   },
   carNumber: {
-    type: String,
-    required: true
+    type: String
   },
   companyName: {
     type: String
