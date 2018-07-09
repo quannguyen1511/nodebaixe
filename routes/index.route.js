@@ -65,7 +65,7 @@ function startRent(req, res, next) {
           .send({ message: message.ERROR_MESSAGE.INDEX.EMPTY_CAR_NUMBER });
       } else {
         indexController
-          .updateIndex(request)
+          .createIndex(request)
           .then(response => res.send(response))
           .catch(err => next(err));
       }

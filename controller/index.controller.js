@@ -4,6 +4,7 @@ var message = require("./../utils/message");
 module.exports = {
   getAllIndex: getAllIndex,
   getIndex: getIndex,
+  createIndex: createIndex,
   updateIndex: updateIndex
 };
 
@@ -41,6 +42,45 @@ function getIndex(request) {
   });
 }
 
+function createIndex(request) {
+  return new Promise((resolve, reject) => {
+    Index.findOne({ col: request.col, row: request.row }).exec(
+      (err, indexModel) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (!indexModel) {
+            reject({
+              statusCode: 404,
+              message: message.ERROR_MESSAGE.INDEX.NOT_FOUND
+            });
+          } else {
+            if (indexModel.status == 1) {
+              reject({
+                statusCode: 400,
+                message: message.ERROR_MESSAGE.INDEX.EXIST
+              });
+            } else {
+              indexModel.companyName = request.companyName;
+              indexModel.status = request.status;
+              indexModel.rentedDate = request.rentedDate;
+              indexModel.expirationDate = request.expirationDate;
+              indexModel.renter = request.renter;
+              indexModel.carNumber = request.carNumber;
+              indexModel.save((err, response) => {
+                if (err) reject(err);
+                else {
+                  resolve(response);
+                }
+              });
+            }
+          }
+        }
+      }
+    );
+  });
+}
+
 function updateIndex(request) {
   return new Promise((resolve, reject) => {
     Index.findOne({ col: request.col, row: request.row }).exec(
@@ -54,27 +94,12 @@ function updateIndex(request) {
               message: message.ERROR_MESSAGE.INDEX.NOT_FOUND
             });
           } else {
-            indexModel.companyName =
-              indexModel.companyName !== request.companyName
-                ? request.companyName
-                : indexModel.companyName;
+            indexModel.companyName = request.companyName;
             indexModel.status = request.status;
-            indexModel.rentedDate =
-              indexModel.rentedDate !== request.rentedDate
-                ? request.rentedDate
-                : indexModel.rentedDate;
-            indexModel.expirationDate =
-              indexModel.expirationDate !== request.expirationDate
-                ? request.expirationDate
-                : indexModelexpirationDate;
-            indexModel.renter =
-              indexModel.renter !== request.renter
-                ? request.renter
-                : indexModel.renter;
-            indexModel.carNumber =
-              indexModel.carNumber != request.carNumber
-                ? request.carNumber
-                : indexModel.carNumber;
+            indexModel.rentedDate = request.rentedDate;
+            indexModel.expirationDate = request.expirationDate;
+            indexModel.renter = request.renter;
+            indexModel.carNumber = request.carNumber;
             indexModel.save((err, response) => {
               if (err) reject(err);
               else {
