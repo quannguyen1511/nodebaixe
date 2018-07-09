@@ -56,7 +56,7 @@ function createIndex(request) {
               message: message.ERROR_MESSAGE.INDEX.NOT_FOUND
             });
           } else {
-            if (indexModel.status == 1) {
+            if (indexModel.status === 1) {
               reject({
                 statusCode: 400,
                 message: message.ERROR_MESSAGE.INDEX.EXIST
@@ -95,7 +95,7 @@ function updateIndex(request) {
               message: message.ERROR_MESSAGE.INDEX.NOT_FOUND
             });
           } else {
-            if (indexModel.status == 0) {
+            if (indexModel.status === 0) {
               reject({
                 statusCode: 404,
                 message: message.ERROR_MESSAGE.INDEX.EMPTY
