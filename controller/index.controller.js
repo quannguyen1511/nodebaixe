@@ -5,8 +5,7 @@ module.exports = {
   getAllIndex: getAllIndex,
   getIndex: getIndex,
   createIndex: createIndex,
-  updateIndex: updateIndex,
-  deleteIndex: deleteIndex
+  updateIndex: updateIndex
 };
 
 function getAllIndex() {
