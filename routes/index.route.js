@@ -85,8 +85,8 @@ function updateRent(req, res, next) {
     row: req.params.row,
     companyName: req.body.companyName,
     status: 1,
-    rentedDate: req.body.rentedDate,
-    expirationDate: req.body.expirationDate,
+    rentedDate: new Dtae(req.body.rentedDate),
+    expirationDate: new Date(req.body.expirationDate),
     renter: req.body.renter,
     carNumber: req.body.carNumber
   };
